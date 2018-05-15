@@ -16,7 +16,7 @@ const decorateSvg = (
         };
 
         static defaultProps = {
-            color1: '#f00',
+            color1: '#3b8ef3',
             width,
             height,
         };
@@ -79,10 +79,11 @@ const decorateSvg = (
             return (
                 <div
                     className = { className }
+                    name = { this.props._name || '' }
                     style = { wrapperStyle }
                     onClick = { onClickAction }
-                    onMouseEnter = { disabled ? null : this._handleMouseEnter }
-                    onMouseLeave = { disabled ? null : this._handleMouseLeave }>
+                    onMouseEnter = { !disabled && this._handleMouseEnter }
+                    onMouseLeave = { !disabled && this._handleMouseLeave }>
                     <svg
                         style = { svgStyle }
                         version = '1.1'
