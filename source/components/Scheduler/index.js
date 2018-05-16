@@ -11,8 +11,8 @@ import Styles from "./styles.m.css";
 export class Scheduler extends Component {
     constructor () {
         super();
-        this.onAddTask = ::this._onAddTask;
         this.createNewTask = ::this._createNewTask;
+        this.onAddTask = ::this._onAddTask;
         this.sortTasks = ::this._sortTasks;
         this.toggleTaskComplete = ::this._toggleTaskComplete;
         this.updateTaskDescription = ::this._updateTaskDescription;
@@ -27,11 +27,11 @@ export class Scheduler extends Component {
     }
 
     state = {
-        isLoading:       false,
-        tasks:           [],
-        tasksFilter:     '',
-        taskDescription: '',
-        completedAll:    false,
+        isLoading:            false,
+        tasks:                [],
+        descriptionForSearch: '',
+        taskDescription:      '',
+        completedAll:         false,
     };
 
     componentDidMount () {
@@ -105,7 +105,7 @@ export class Scheduler extends Component {
         const { value } = e.target;
 
         this.setState({
-            tasksFilter: value,
+            descriptionForSearch: value,
         });
     }
 
@@ -288,20 +288,20 @@ export class Scheduler extends Component {
         const {
             isLoading,
             tasks,
-            tasksFilter,
+            descriptionForSearch,
             taskDescription,
         } = this.state;
 
         const renderTasks = tasks
-            .filter(({ message }) => message.includes(tasksFilter))
+            .filter(({ message }) => message.includes(descriptionForSearch))
             .map((task) => (<Task
+                { ...task }
                 key = { task.id }
                 removeTask = { this.removeTask }
                 toggleFavorite = { this.toggleFavorite }
                 toggleTaskComplete = { this.toggleTaskComplete }
                 updateTask = { this.updateTask }
                 updateTaskDescription = { this.updateTaskDescription }
-                { ...task }
             />));
 
         return (
@@ -311,9 +311,9 @@ export class Scheduler extends Component {
                     <header>
                         <h1>Планировщик задач</h1>
                         <input
-                            placeholder = 'Поиск'
+                            placeholder = 'Поиск задачи'
                             type = 'text'
-                            value = { tasksFilter }
+                            value = { descriptionForSearch }
                             onChange = { this.searchTasks }
                         />
                     </header>

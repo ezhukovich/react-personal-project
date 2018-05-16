@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 // Instruments
 import Styles from "./styles.m.css";
 
+
 const portal = document.getElementById('spinner');
 
 export const Spinner = ({ isLoading }) => createPortal(
